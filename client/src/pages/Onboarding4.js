@@ -5,9 +5,12 @@ function Onboarding4() {
   return (
     <div className="main-app">
       <ProgressBar step={4} />
-      <Question imgUrl="https://kakaofriendsmbti.netlify.app/images/01-01.png" />
-      <Answer text="" />
-      <Answer text="" />
+      <Question imgUrl="https://kakaofriendsmbti.netlify.app/images/04-01.png" />
+      <Answer
+        text="지금 PPT 만드는 중이니까 아마 한 2시간 뒤면 끝날거 같아!"
+        value="T"
+      />
+      <Answer text="모르겠어. 근데 지금 PPT 만들고 있어!" value="F" />
     </div>
   );
 }

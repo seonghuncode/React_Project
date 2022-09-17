@@ -10,7 +10,11 @@ function Answer(props) {
       onClick={() => {
         setDispatchType({
           code: "답변",
-        }); //여기서 실행되면 서버의 App.js에서 dispathtype이 변경된다
+          params: {
+            //params를 객체로 만들었다.
+            mbti: props.value, //E인지 I인지 어떤것을 클릭했는지 넘겨준다??
+          },
+        }); //여기서 실행되면 서버의 App.js에서 dispathtype이 변경된다 , useEffect가 샐행된다(서버의 App.js)
       }}
     >
       {props.text}

@@ -1,6 +1,7 @@
 import "./App.css";
-import React from "react";
+import React, { cloneElement } from "react";
 import AppIndex from "./AppIndex";
+import { useNavigate } from "react-router-dom";
 
 //전역 변수를 해주기 위한 파일
 
@@ -16,9 +17,11 @@ import AppIndex from "./AppIndex";
 export const StoreContext = React.createContext({});
 
 function App() {
+  //페이지 이동 할때 사용
+  const navigation = useNavigate();
+
   const [dispatchType, setDispatchType] = React.useState({
     code: "",
-    page: "",
     params: null,
   });
 
@@ -47,7 +50,41 @@ function App() {
   React.useEffect(() => {
     switch (dispatchType.code) {
       case "답변":
-        alert("사용자가 답변을 눌렀습니다.");
+        const clickedMbti = dispatchType.params.mbti;
+        // alert(`사용자가 ${clickMbti} 답변을 눌렀습니다.`);
+
+        //카운트를 올려주는 역할
+        const cloneMbti = [...mbti];
+
+        const findIndex = cloneMbti.findIndex((value) => {
+          console.log(value[clickedMbti]); //자바스크립트의 0은 없는 것을 의미 한다
+
+          //키값이 존재 하는지 확인(구글링) , 0은 없는 값으로 볼 수 있기 때문에 값은 없어도 키만 있으면 판단이 가능하기 때문
+          return value.hasOwnProperty(clickedMbti); //배열중 0번째 이기에 0으로 반환??
+        });
+
+        cloneMbti[findIndex][clickedMbti]++; //index번호를 찾아 clickedMbti를 넣어 ++해준다
+        setMbti(cloneMbti);
+        console.log(cloneMbti);
+
+        console.log(cloneMbti);
+
+        //다음 페이지 이동해주는 기능
+        const pathname = window.location.pathname; //현재 페이지를 알려준다
+        const nextPage = Number(pathname.charAt(pathname.length - 1)) + 1; //pathname은 문자열이기 때문에 문자열의 위치를 가지고 올때 charAt을 사용한다, 문자열 길이 - 1 = 마지말을 의미
+        //문자열을 Number로 숫자로 형변환을 해준다 chatAt(0)은 /를 가지고 온다, 숮자로 형변환 후 + 1을 해준다
+        console.log(`on${nextPage}`);
+        console.log(typeof nextPage);
+        if (nextPage === 6) {
+          navigation(`/result`, {
+            state: {
+              mbti: mbti, //result에 값을 주는 것
+            },
+          });
+        } else {
+          navigation(`/on${nextPage}`); //직접 원하는 url을 넣어 주면 계속 해당 페이지로 유지 되기 때문에 pathname사용해서 맨 뒷자리 주소를 + 1씩해서 넘어가게 해준디
+        }
+
         break;
 
       default:
