@@ -16,7 +16,7 @@ import {
 //컴포넌트 만들고 페이지 설정
 function AppIndex() {
   return (
-    //페이지 설정
+    //페이지 설정, 온보딩이 5개를 의미, 결과를 알기 위해서는 각 온보딩의 어떠한 값을 결정했는지 기억했다가 서버에 보내야 한다
     <Routes>
       <Route exact path="/" element={<Main />} />
       <Route exact path="/on1" element={<Onboarding1 />} />
