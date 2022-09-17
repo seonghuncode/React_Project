@@ -16,6 +16,7 @@ import {
 //컴포넌트 만들고 페이지 설정
 function AppIndex() {
   return (
+    //페이지 설정
     <Routes>
       <Route exact path="/" element={<Main />} />
       <Route exact path="/on1" element={<Onboarding1 />} />
