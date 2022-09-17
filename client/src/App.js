@@ -22,7 +22,21 @@ function Head(props) {
 }
 
 function Eye() {
-  return <div></div>;
+  const { 사물을보다, set사물을보다 } = React.useContext(StoreContext);
+
+  return (
+    <div>
+      {사물을보다 ? "사물을 보고 있습니다" : "사물을 보고 있지 않습니다"}
+      <button
+        type="button"
+        onClick={() => {
+          set사물을보다(true);
+        }}
+      >
+        사물보기
+      </button>
+    </div>
+  );
 }
 function Nose(props) {
   return <div>{props.숨을쉬다 ? "숨을 쉬고 있습니다." : null}</div>;
@@ -123,6 +137,8 @@ function Person() {
         value={{
           숨을쉬다: 숨을쉬다,
           set숨을쉬다: set숨을쉬다,
+          사물을보다: 사물을보다,
+          set사물을보다: set사물을보다,
         }}
       >
         <Head />
