@@ -47,7 +47,7 @@ function Mouth(props) {
   // const constextDatea = React.useContext(StoreContext); //이러할때는 props로 받아오는게 아니다
   // console.log(constextDatea);
 
-  const { 숨을쉬다, set숨을쉬다 } = React.useContext(StoreContext); //props를 사용하지 않고 바로 전역으로 사용
+  const { 숨을쉬다, setDispatchType } = React.useContext(StoreContext); //props를 사용하지 않고 바로 전역으로 사용
   console.log(숨을쉬다);
 
   return (
@@ -56,7 +56,7 @@ function Mouth(props) {
       <button
         type="button"
         onClick={() => {
-          set숨을쉬다(true);
+          setDispatchType("숨을쉬다");
         }}
       >
         숨쉬기
@@ -131,14 +131,35 @@ function Person() {
   const [운동을하다, set운동을하다] = React.useState(false);
   const [생각을하다, set생각을하다] = React.useState(false);
 
+  //EX 생각을하다를 바꾸기 위해서는 생각을하다, set생각을하다 둘다 보내주어야 한다. 변수가 여러개 있다면 복작하기 때문에 코드를 더 간단하게 하기 위한 방법
+  const [dispatchType, setDispatchType] = React.useState("");
+
+  //위에서 setDispatchType이 있으면 여기가 실행된다
+  React.useEffect(() => {
+    switch (dispatchType) {
+      case "숨을쉬다":
+        alert("숨을쉬다");
+        set숨을쉬다(true);
+        break;
+
+      case "사물을보다":
+        break;
+
+      case "움직이다":
+        break;
+
+      default:
+        break;
+    }
+  }, [dispatchType]);
+
   return (
     <div>
       <StoreContext.Provider
         value={{
           숨을쉬다: 숨을쉬다,
-          set숨을쉬다: set숨을쉬다,
           사물을보다: 사물을보다,
-          set사물을보다: set사물을보다,
+          setDispatchType: setDispatchType,
         }}
       >
         <Head />
