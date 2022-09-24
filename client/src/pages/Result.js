@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 //axios로 서버로 보낼 예정
@@ -7,8 +7,9 @@ import axios from "axios";
 
 function Result() {
   //state값을 App.js에서 받아온다??
-  const state = useLocation();
-
+  const { state } = useLocation(); //{state } => 전체가 아닌 state만 보내기 위해서
+  const [캐릭터, set캐릭터] = React.useState({});
+  const navigation = useNavigate();
   //async
   const sendMbti = async () => {
     console.log(state);
@@ -21,6 +22,9 @@ function Result() {
     })
       .then((response) => {
         //요청이 성공했을때 실행 시키는 함수, 성공하면 response를 받는다
+        console.log(response);
+        const data = response.data;
+        set캐릭터(data);
       })
       .catch(() => {
         //요청에 에러가 났을때 실행 되는 함수
@@ -33,7 +37,19 @@ function Result() {
     //Result파일로 오면 useEffect가 실행되게
     sendMbti(); //서버로 정보를 보내는 함수
   }, []);
-  return <div>Result</div>;
+  return (
+    <div className="result-img-wrap">
+      <img className="result-img" src={캐릭터.content} alt={캐릭터.name}></img>
+      <button
+        className="btn"
+        onClick={() => {
+          navigation("/");
+        }}
+      >
+        다시하기
+      </button>
+    </div>
+  );
 }
 
 export default Result;
