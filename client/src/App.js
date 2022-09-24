@@ -47,6 +47,7 @@ function App() {
     },
   ]);
 
+  //mbti변수가 모든 온보딩 에서 필요한데 각 페이지 별로 state값을 만들지 않고 useEffect에서 처리하기 위해 전역변수 사용
   React.useEffect(() => {
     switch (dispatchType.code) {
       case "답변":
@@ -56,15 +57,25 @@ function App() {
         //카운트를 올려주는 역할
         const cloneMbti = [...mbti];
 
+        //findeIndex는 값이 존재 한다면 index값을 찾는데 이는??
         const findIndex = cloneMbti.findIndex((value) => {
+          //cloneMbti를 가지고 와서 계속 반복문을 돌려서 각각의 0번째 1번째 나오는 것이 value값이 된다. , reutrn으로 만족을 해야지 값이 나오고 만족하지 않으면 X
+          console.log("value값");
+          console.log(value);
+
           console.log(value[clickedMbti]); //자바스크립트의 0은 없는 것을 의미 한다
 
           //키값이 존재 하는지 확인(구글링) , 0은 없는 값으로 볼 수 있기 때문에 값은 없어도 키만 있으면 판단이 가능하기 때문
+          console.log("hasOwnProperty값");
+          console.log(value.hasOwnProperty(clickedMbti));
           return value.hasOwnProperty(clickedMbti); //배열중 0번째 이기에 0으로 반환??
         });
+        console.log("findeIndex값");
+        console.log(findIndex);
 
         cloneMbti[findIndex][clickedMbti]++; //index번호를 찾아 clickedMbti를 넣어 ++해준다
         setMbti(cloneMbti);
+        console.log("cloneMbti값");
         console.log(cloneMbti);
 
         console.log(cloneMbti);
@@ -72,10 +83,12 @@ function App() {
         //다음 페이지 이동해주는 기능
         const pathname = window.location.pathname; //현재 페이지를 알려준다
         const nextPage = Number(pathname.charAt(pathname.length - 1)) + 1; //pathname은 문자열이기 때문에 문자열의 위치를 가지고 올때 charAt을 사용한다, 문자열 길이 - 1 = 마지말을 의미
+        //현재 페이지가 on1면 1만 가지고 와서 +1을 하면 다음 페이지 주소가 된다
         //문자열을 Number로 숫자로 형변환을 해준다 chatAt(0)은 /를 가지고 온다, 숮자로 형변환 후 + 1을 해준다
         console.log(`on${nextPage}`);
         console.log(typeof nextPage);
         if (nextPage === 6) {
+          //navigation으로 Result로 보내준다
           navigation(`/result`, {
             state: {
               mbti: mbti, //result에 값을 주는 것
@@ -95,6 +108,7 @@ function App() {
   return (
     <StoreContext.Provider
       value={{
+        //value값을 전역으로 사용 가능 하게 된다, mbti변수가 모든 온보딩 에서 필요한데 각 페이지 별로 state값을 만들지 않고 useEffect에서 처리하기 위해 전역변수 사용
         setDispatchType: setDispatchType, //이걸 바꾸어 useEffect로 가서 한번에 다 처리 할 수 있게?? - Answer에서 바로 사용??
       }}
     >

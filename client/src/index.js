@@ -11,11 +11,10 @@ import { BrowserRouter } from "react-router-dom"; //react-router-dom라이브러
 //BrowserRouter
 //둘의 차이점 공부 : 대부분 BrowerRouter을 사용
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById("root")); //index.html의 root안으로 보내서 쌓는다.(append의 개념),
+//브라우저는 우리가 사용하는 리액트를 모르기 때문에 다 보내주어 html코드로 변환해 준다??
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 );
